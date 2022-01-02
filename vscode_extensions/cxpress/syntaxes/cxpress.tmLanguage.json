@@ -1,0 +1,206 @@
+{
+	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"name": "cXpress",
+	"patterns": [
+		{
+			"include": "#comments"
+		},
+		{
+			"include": "#operators"
+		},
+		{
+			"include": "#strings"
+		},
+		{
+			"include": "#keywords"
+		},
+		{
+			"include": "#numbers"
+		},
+		{
+			"include": "#reserved-words"
+		},
+		{
+			"include": "#variables"
+		},
+		{
+			"include": "#functions"
+		},
+		{
+			"include": "#constants"
+		},
+		{
+			"include": "#builtins"
+		},
+		{
+			"include": "#symbols"
+		},
+		{
+			"name": "identifier",
+			"match": "\\b[a-zA-Z_][a-zA-Z0-9_]*\\b"
+		},
+		{
+			"include": "#strings"
+		},
+		{
+			"include": "#imports"
+		}
+	],
+	"repository": {
+		"comments" : {
+			"patterns": [
+				{
+					"name": "Single line comment",
+					"match": "//.*$"
+				},
+				{
+					"name": "Multi line comment",
+					"begin": "/\\*",
+					"end": "\\*/",
+					"patterns": [
+						{
+							"include": "#comments"
+						}
+					]
+				}
+			]
+		},
+		"imports": {
+			"patterns" : [
+				{
+				"name": "M Import",
+				"match": "/^#INCLUDE/"
+				},
+				{
+					"name": "cxpress Imports",
+					"match": "/^#import/"
+				},
+				{
+					"name": "Framework Imports",
+					"match": "/^#framework^/"
+				}
+				
+			]
+		},
+		"reserved-words" : {
+
+		},
+		"operators": {
+			"patterns": [
+				{
+					"name": "Arithmetic",
+					"match": "\\+|\\-|\\*|\\/|\\%"
+				},
+				{
+					"name": "Comparison",
+					"match": "==|!=|<=|>=|<|>"
+				},
+				{
+					"name": "Assignment",
+					"match": "="
+				},
+				{
+					"name": "Logical",
+					"match": "&&|\\|\\|"
+				},
+				{
+					"name": "Bitwise",
+					"match": "\\^|\\&|\\~"
+				},
+				{
+					"name": "Increment/Decrement",
+					"match": "\\+\\+|\\-\\-"
+				},
+				{
+					"name": "Other",
+					"match": "\\(|\\)"
+				}
+			]
+		},
+		"variables": {
+			"patterns": [
+				{
+					"name": "Variable",
+					"match": "\\$[a-zA-Z_][a-zA-Z0-9_]*"
+				}
+			]
+		},
+		"functions": {
+			"patterns": [
+				{
+					"name": "Function",
+					"match": "\\b[a-zA-Z]\\(\\b"
+				}
+			]
+		},
+		"constants": {
+			"patterns": [
+				{
+					"name": "Constant",
+					"match": "\\b[A-Z_][A-Z0-9_]*\\b"
+				}
+			]
+		},
+		"builtins": {
+			"patterns": [
+				{
+					"name": "Builtin",
+					"match": "\\b[A-Z_][A-Z0-9_]*\\b"
+				}
+			]
+		},
+		"symbols": {
+			"patterns": [
+				{
+					"name": "Symbol",
+					"match": "\\b[a-zA-Z_][a-zA-Z0-9_]*\\b"
+				}
+			]
+		},
+		
+		"keywords": {
+			"patterns": [{
+				"name": "keyword.control.",
+				"match": "\\b(new|using|null|try|catch|Exception|void|this|class|struct|params|if|else|while|for|return|func|str|int|var|byte|pointer|uint|uint32|float|double|long|INCLUDE|framework|import|int32|char|short|ushort|decimal|object|datetime|foreach|in|true|false)\\b"
+			}]
+		},
+		"identifiers": {
+			"patterns": [{
+				"name": "identifier",
+				"match": "\\b[a-zA-Z_][a-zA-Z0-9_]*\\b"
+			}]
+		},
+		"strings": {
+			"name": "string.quoted.double.cxpress",
+			"begin": "\"",
+			"end": "\"",
+			"patterns": [
+				{
+					"name": "constant.character.escape.cxpress",
+					"match": "\\\\."
+				}
+			]
+		},
+		"numbers": {
+			"patterns": [
+				{
+					"name": "constant.numeric.cxpress",
+					"match": "\\b[0-9]+\\b"
+				},
+				{
+					"name": "constant.numeric.cxpress",
+					"match": "\\b[0-9]+\\.[0-9]+\\b"
+				},
+				{
+					
+					"name": "constant.numeric.cxpress",
+					
+					"match": "\\b0x[0-9a-fA-F]+\\b"
+				}
+				
+			]
+		}
+
+	},
+	"scopeName": "source.cx"
+}

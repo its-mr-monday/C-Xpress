@@ -1,0 +1,28 @@
+#INCLUDE <std.lib>
+
+//We will create two Human objects one of which will be a struct the other a class
+struct Humanoid {
+    int AGE;
+    str NAME;
+
+    Human(int age, str name) {
+        NAME = name;
+        AGE = age;
+    }
+}
+
+class Human {
+    params {
+        int age;
+        str name;
+    }
+    Human(int age, str name) {
+        this.age = age;
+        this.name = name;
+    }
+}
+
+func main(str[] args) {
+    Human human(22, "David");
+    Humanoid humanoid(22, "David");
+}

@@ -1,0 +1,2 @@
+exec => shell.exec
+execp => shell.execp

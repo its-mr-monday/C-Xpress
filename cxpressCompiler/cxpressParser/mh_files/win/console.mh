@@ -1,0 +1,9 @@
+#CONSOLE_MH
+GetConsoleWindow => console.GetConsoleWindow
+ShowWindow => console.ShowWindow
+SW_HIDE => console.SW_HIDE
+SW_SHOW => console.SW_SHOW
+AllocConsole => console.AllocConsole
+AttachConsole => console.AttachConsole
+AddConsoleAlias => console.AddConsoleAlias
+CreateConsoleScreenBuffer => console.CreateConsoleScreenBuffer

@@ -1,0 +1,111 @@
+/*
+    CXPRESS COMPILER PARSER WRITTEN IN MING
+    CYBER M TECHNOLOGIES 2022
+*/
+#INCLUDE <std.lib>
+#INCLUDE <std.file>
+#framework System
+#framework System.IO
+#framework System.Text
+#framework System.Collections
+#framework System.Collections.Generic
+#framework System.Linq
+#framework System.Text.RegularExpressions
+#framework System.Threading
+#framework System.Threading.Tasks
+#framework System.Web
+
+//Dictionary<string, string> format_types = new Dictionary<string, string>();
+func return_format_types() = Dictionary<str, str> {
+    Dictionary<str, str> format_types();
+    format_types.Add("TAB", "   ");
+    format_types.Add("SPACE", " ");
+    format_types.Add("FUNCTIONAL", "var x = some_func(args) || some_func(args)");
+    format_types.Add("OBJECT", "Type name(args)");
+    return format_types;
+}
+
+func getParserDir() = str {
+    uint PROCESS_ALL_ACCESS = 0x40;
+    int x = 10;
+}
+
+func read_file(str file_name) = str {
+    if (fileExists(file_name)) {
+        //Use std.file.readFile
+        byte[] filedata = readFile(file_name);
+        //use std.lib.bytesToStr
+        str file = bytesToStr(filedata);
+        return file;
+    }
+    return null;
+}
+
+func load_m_files(str[] include_table, str file_path) = str[] {
+    
+    str parser = getParserDir();
+    str[] files = include_table;
+    if (isDir(pathCombine(file_path, "m_files"))) {
+        file_path = pathCombine(file_path, "m_files") {
+            for (int x = 0;x < files.Length; x++) {
+                str file = files[x];
+                //Parse the file by removing the #INCLUDE statement
+                if (file.Contains("#INCLUDE <")) {
+                    file = file.Replace("#INCLUDE <", "");
+                    file = file.Replace(">", "");
+                }
+                else if (file.Contains("#INCLUDE \"")) {
+                    file = file.Replace("#INCLUDE \"", "");
+                    file = file.Replace("\"", "");
+                }
+                str file_data = read_file(pathCombine(file_path, file));
+
+                if (file_data != null) {
+
+                }
+
+            }
+        }
+    }
+    return files;
+}
+
+func load_ming_files(str[] ming_table, str file_path) = str[] {
+
+}
+//Parse the .NET framework namespaces from #framework x => using x;
+func load_framework_files(str[] framework_table, str file_path) = str[] {
+    str[] frameworks = framework_table;
+    for (int x = 0; x < frameworks.Length; x++) {
+        str file = frameworks[x];
+        file.Replace("#framework ", "");
+        file = "using " + file + ";";
+        frameworks[x] = file;
+    }
+    return frameworks;
+}
+
+//Will parse a file at path and return its C# files path
+func parse_file(str filename) = str {
+    //First step is to read the file
+    str file_data = read_file(filename);
+    if (file_data != null) {
+
+    }
+    return null;
+}
+
+//Parser main to be called by compiler.cx
+func parser_main(str[] args) = int {
+
+    if (args[0] == "-h" || args[0] == "--help") {
+        print("Usage: cxc.exe <filename> <project name> <project type>");
+        print("Example: cxc.exe test.cx test Console");
+        return 0;
+    }
+    if (args.Length < 3) {
+        print("Not enough arguments");
+        return 0;
+    }
+
+}

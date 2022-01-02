@@ -1,0 +1,52 @@
+#INCLUDE <win.kernel32>
+#INCLUDE <std.lib>
+#INCLUDE <std.file>
+#INCLUDE <win.proctypes>
+
+class DLLInjector {
+    params {
+        byte[] dll = null;
+
+    }
+	//Class constructor
+    DLLInjector(str dll_path) {
+		load_dll(dll_path);
+    }
+
+    func load_dll(str dll_path) = void {
+		if (isFile(dll_path)) {
+			dll = readFile(dll_path);
+		}
+    }
+    func Inject(int pid) = bool {
+        uint dllSize = uint.ConvertInt(dll.count);
+		
+		pointer hProc = OpenProcess(PROCESS_ALL_ACCESS, false, pid);
+		if (hProc == NULL){
+			return false;
+		}
+		
+		pointer MyAlloc = VirtualAllocEx(hProc, NULL, dllSize, MEM_COMMIT, PAGE_EXECUTE_READWRITE);
+		if (MyAlloc == NULL){
+			return false;
+		}
+		
+		pointer bytesWritten;
+		bool isWriteOk = WriteProcessMemory(hProc, MyAlloc, dll, dll.count, out bytesWritten);
+		if (bytesWritten == NULL || isWriteOk != true) {
+			return false;
+		}
+		
+		pointer dWord;
+		pointer addrLoadLibrary = GetProcAddress(LoadLibrary("kernel32"), "LoadLibraryA");
+		pointer ThreadReturn = CreateRemoteThread(hProc, NULL, 0, addrLoadLibrary, MyAlloc, 0, out dWord);
+		if (ThreadReturn == NULL) {
+			return false;
+		}
+		if ((hProc != NULL) && (MyAlloc != NULL) && (isWriteOk != false) && (ThreadReturn != NULL) && (bytesWritten != NULL){
+			return true;
+		}
+		
+		return false;
+    }
+}

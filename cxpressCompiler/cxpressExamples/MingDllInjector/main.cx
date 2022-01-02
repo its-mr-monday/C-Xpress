@@ -1,0 +1,9 @@
+#INCLUDE <std.lib>
+#import "dllInjector.cx"
+
+func main(str[] args) {
+    
+    DLLInjector injector("C:\\some.dll");
+    injector.Inject(1234);
+    return;
+}

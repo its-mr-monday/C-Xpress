@@ -1,0 +1,9 @@
+#import "parser.parser.cx"
+#INCLUDE <std.lib>
+#INCLUDE <win.shell>
+
+func main(str[] args) {
+    int return_code = parser_main(args);
+    exit(return_code);
+    return;
+}

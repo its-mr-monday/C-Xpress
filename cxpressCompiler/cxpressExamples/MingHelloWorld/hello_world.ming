@@ -1,0 +1,5 @@
+#INCLUDE <std.lib>
+
+func main(str[] args) {
+    print("Hello World");
+}
