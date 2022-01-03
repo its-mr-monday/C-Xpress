@@ -10,6 +10,7 @@ namespace std {
         public static string getFileExtension(string path) { return Path.GetExtension(path); }
         public static string getFileDir(string path) { return Path.GetDirectoryName(path); }
         public static byte[] readFile(string path) { return File.ReadAllBytes(path); }
+        public static str[] readFileLines(string path) { return File.ReadAllLines(path); }
         public static string getDirName(string path) { return Path.GetDirectoryName(path); }
         public static string getDirNameWithoutExtension(string path) { return Path.GetDirectoryName(path); }
         public static string getDirExtension(string path) { return Path.GetExtension(path); }

@@ -5,6 +5,7 @@ getFileNameWithoutExtension => file.getFileNameWithoutExtension
 getFileExtension => file.getFileExtension
 getFileDir => file.getFileDir
 readFile => file.readFile
+readFileLines => file.readFileLines
 getDirName => file.getDirName
 getDirNameWithoutExtension => file.getDirNameWithoutExtension
 getDirExtension => file.getDirExtension

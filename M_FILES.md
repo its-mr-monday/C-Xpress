@@ -39,6 +39,8 @@
 
         func readFile(str path) = byte[];
 
+        func readFileLines(str path) = str[];
+
         func getDirName(str path) = str;
 
         func getDirNameWithoutExtension(str path) = str;

@@ -1,3 +1,9 @@
+'''
+    CXPRESS COMPILER PARSER WRITTEN IN PYTHON3
+    CYBERM TECHNOLOGIES 2022
+'''
+
+
 import os
 import subprocess
 
@@ -7,6 +13,13 @@ variable_dict = {'str': 'string', 'int': 'int', 'double': 'double',
                  'pointer': 'IntPtr', 'void': 'void', 'datetime': 'DateTime',
                  'int32' : 'Int32', 'uint32': 'UInt32'}
 
+def readFileLines(file_path):
+    filelines = []
+    file = open(file_path, 'r')
+    for line in file.readlines():
+        filelines.append(line)
+    
+    return filelines
 
 def return_format_types():
     TAB = "    "
@@ -59,7 +72,7 @@ def load_m_files(include_table: list, file_path: str):
             fnames = fname.split('.')
             dir = fnames[0]
             fname = fnames[1]
-            fname += ".cx"
+            fname += ".m"
             fname = os.path.join(PARSER_DIR, dir, fname)
             include_files.append(fname)
         elif (include.startswith('#INCLUDE "')):
@@ -67,34 +80,24 @@ def load_m_files(include_table: list, file_path: str):
             fnames = fname.split('.')
             dir = fnames[0]
             fname = fnames[1]
-            fname += ".cx"
+            fname += ".m"
             fname = os.path.join(file_path, dir, fname)
             include_files.append(fname)
-    retVal = {}
+        else:
+            include_files.append(None)
     
-    #Load the m files in the order they appear in the include table
-    for f in include_files:
-        fpath = os.path.join(PARSER_DIR, f)
-        file = open(fpath, 'r')
-        meta_data = ""
-        for line in file:
-            if line.contains('#'):
-                pass
-            meta_data.append(line + '\n')
-            
-        file.close()
-        
-        
-    return retVal
+    return include_files
     
-def parse_m_file(m_file: str):
+def parse_mh_file(mh_file_path: str, function_translations = {}):
     #will parse a loaded m file
-    function_translations = {}
-    for line in m_file:
+    file_lines = readFileLines(mh_file_path)
+    for line in file_lines:
         split_line = line.split(' => ')
         cs_ver = split_line[1]
-        ming_ver = split_line[0]
+        cx_ver = split_line[0]
+        function_translations[cx_ver] = cs_ver
         
+    return function_translations
         
 def convert_line_to_cs(line: str):
     cs_line = line

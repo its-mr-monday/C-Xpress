@@ -1,5 +1,5 @@
 /*
-    CXPRESS COMPILER PARSER WRITTEN IN MING
+    CXPRESS COMPILER PARSER WRITTEN IN CXPRESS
     CYBER M TECHNOLOGIES 2022
 */
 #INCLUDE <std.lib>
@@ -26,8 +26,8 @@ func return_format_types() = Dictionary<str, str> {
 }
 
 func getParserDir() = str {
-    uint PROCESS_ALL_ACCESS = 0x40;
-    int x = 10;
+    str parser_dir = AppContext.BaseDirectory;
+    return parser_dir;
 }
 
 func read_file(str file_name) = str {
@@ -42,7 +42,6 @@ func read_file(str file_name) = str {
 }
 
 func load_m_files(str[] include_table, str file_path) = str[] {
-    
     str parser = getParserDir();
     str[] files = include_table;
     if (isDir(pathCombine(file_path, "m_files"))) {
@@ -53,15 +52,26 @@ func load_m_files(str[] include_table, str file_path) = str[] {
                 if (file.Contains("#INCLUDE <")) {
                     file = file.Replace("#INCLUDE <", "");
                     file = file.Replace(">", "");
+                    str[] fnames = file.Split(".");
+                    str dir = fnames[0];
+                    str fname = fnames[1];
+                    fname = fname + ".m";
+                    fname = Path.Join(parser, "m_files", dir, fname);
+                    file[x] = fname;
                 }
                 else if (file.Contains("#INCLUDE \"")) {
                     file = file.Replace("#INCLUDE \"", "");
                     file = file.Replace("\"", "");
+                    str[] fnames = file.Split(".");
+                    str dir = fnames[0];
+                    str fname = fnames[1];
+                    fname = fname + ".m";
+                    fname = Path.Join(file_path, dir ,fname);
+                    file[x] = fname;
                 }
-                str file_data = read_file(pathCombine(file_path, file));
-
-                if (file_data != null) {
-
+                else {
+                    //Could not locate filename
+                    file[x] = null;
                 }
 
             }
@@ -70,9 +80,23 @@ func load_m_files(str[] include_table, str file_path) = str[] {
     return files;
 }
 
-func load_ming_files(str[] ming_table, str file_path) = str[] {
+func parse_mh_file(str mh_file_path, Dictionary<str, str> function_translations) = Dictionary<str, str> {
+    str[] file_lines = readFileLines(mh_file);
+    foreach (str line in file_lines) {
+        str[] split_line = line.Split(" => ");
+        str cs_ver = split_line[1];
+        str cx_ver = split_line[0];
+        function_translations.Add(cx_ver, cs_ver);
+    }
+    return function_translations;
+}
+
+func load_cx_files(str[] ming_table, str file_path) = str[] {
 
 }
+
+
+
 //Parse the .NET framework namespaces from #framework x => using x;
 func load_framework_files(str[] framework_table, str file_path) = str[] {
     str[] frameworks = framework_table;
