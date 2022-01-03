@@ -15,19 +15,37 @@
 #framework System.Threading.Tasks
 #framework System.Web
 
+func getParserDir() = str {
+    str parser_dir = AppContext.BaseDirectory;
+    return parser_dir;
+}
+
+func variable_dict() = Dictionary<str, str> {
+    Dictionary<str, str> dict;
+    dict.Add("str", "string");
+    dict.Add("uint32", "UInt32");
+    dict.Add("int32", "Int32");
+    dict.Add("pointer", "IntPtr");
+    dict.Add("datetime", "DateTime");
+    return dict;
+}
+
 //Dictionary<string, string> format_types = new Dictionary<string, string>();
 func return_format_types() = Dictionary<str, str> {
     Dictionary<str, str> format_types();
     format_types.Add("TAB", "   ");
     format_types.Add("SPACE", " ");
-    format_types.Add("FUNCTIONAL", "var x = some_func(args) || some_func(args)");
-    format_types.Add("OBJECT", "Type name(args)");
+    format_types.Add("FUNCTIONAL", "var x = some_func(args); || some_func(args);");
+    format_types.Add("OBJECT", "Type name(args);");
+    format_types.Add("ARRAY", "var[] x[length];");
     return format_types;
 }
-
-func getParserDir() = str {
-    str parser_dir = AppContext.BaseDirectory;
-    return parser_dir;
+//Dictionary<string, string> func_translations = new Dictionary<string, string>();
+func return_func_translations() = Dictionary<str, str> {
+    Dictionary<str, str> func_translations();
+    func_trasnlations.Add("OBJECT", "Type name = new Type(args);");
+    func_translations.Add("ARRAY", "var[] x = new var[length];");
+    return func_translations;
 }
 
 func read_file(str file_name) = str {

@@ -7,7 +7,7 @@ The compiler will then parse all cx files and convert them to C# files within th
 
 The compiler will then use the C# dotnet compiler to build the application to a executable or DLL
 
-# Example conversion of simple ming file to cs file
+# Example conversion of simple cx file to cs file
 ## CX FILE
     //EXAMPLE.CX
     #INCLUDE <std.lib>

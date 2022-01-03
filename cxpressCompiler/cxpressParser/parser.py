@@ -24,12 +24,14 @@ def readFileLines(file_path):
 def return_format_types():
     TAB = "    "
     SPACE = " "
-    FUNCTIONAL = "var x = some_func(args) || some_func(args)"
-    OBJECT = "Type name(args)"
+    FUNCTIONAL = "var x = some_func(args); || some_func(args);"
+    OBJECT = "Type name(args);"
+    ARRAY = "var[] x[length];"
     return {'FUNCTIONAL': FUNCTIONAL, 'OBJECT': OBJECT, 'TAB': TAB, 'SPACE': SPACE}
 
 def return_obj_format_translations():
-     return {'OBJECT': "Type name = new Type(args)"}
+     return {'OBJECT': "Type name = new Type(args)",
+             'ARRAY' : "var[] x = new var[length];"}
 
 #Will format the data for a class
 def format_class(class_data: str, project: str, included_namespaces: list, frameworks: list, imports: list):
