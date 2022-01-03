@@ -101,6 +101,7 @@
         int x = 0;
         while (x < args.length) {
             printf(args[x] + "\n\n");
+            x+=1;
         }
     }
 
