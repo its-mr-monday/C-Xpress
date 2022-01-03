@@ -15,8 +15,8 @@ func Inject(byte[] dll, int pid) = bool {
         return false;
     }
 
-    pointer MyAllo = VirtualAlloEx(hPro, NULL, Convert.ToUint32(dll.Length), MEM_COMMIT, PAGE_EXECUTE_READWRITE);
-    if (MyAllo == NULL) {
+    pointer MyAlloc = VirtualAlloEx(hPro, NULL, Convert.ToUint32(dll.Length), MEM_COMMIT, PAGE_EXECUTE_READWRITE);
+    if (MyAlloc == NULL) {
         return false;
     }
 
