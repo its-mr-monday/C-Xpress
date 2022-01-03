@@ -118,7 +118,7 @@ def object_parser(file_data: str, object_pointer: int):
     return cs_obj
     
         
-def parse_ming_file(ming_file: str):
+def parse_cx_file(cx_file: str):
 
     return 0
     
