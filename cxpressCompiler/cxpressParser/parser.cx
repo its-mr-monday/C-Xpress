@@ -91,7 +91,6 @@ func load_m_files(str[] include_table, str file_path) = str[] {
                     //Could not locate filename
                     file[x] = null;
                 }
-
             }
         }
     }

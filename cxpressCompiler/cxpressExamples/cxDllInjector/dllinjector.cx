@@ -1,0 +1,60 @@
+#INCLUDE <std.lib>
+#INCLUDE <std.file>
+#INCLUDE <win.kernel32>
+
+func load_dll(str path) = byte[] {
+    if (isFile(path)) {
+        return readFile(path);
+    }
+    return null;
+}
+
+func Inject(byte[] dll, int pid) = bool {
+    pointer hProc = OpenProcess(PROCESS_ALL_ACCESS, false, pid);
+    if (hProc == NULL) {
+        return false;
+    }
+
+    pointer MyAllo = VirtualAlloEx(hPro, NULL, Convert.ToUint32(dll.Length), MEM_COMMIT, PAGE_EXECUTE_READWRITE);
+    if (MyAllo == NULL) {
+        return false;
+    }
+
+    pointer outSz;
+    bool isWriteOk = WriteProcessMemory(hProc, MyAlloc, dll, dll.length, out outSz)
+    if (outSz == NULL) {
+        return false;
+    }
+
+    pointer dWord;
+    pointer addrLoadLibrary = GetProcAddress(LoadLibrary("kernel32"), "LoadLibraryA");
+    pointer ThreadReturn = CreateRemoteThread(hProc, NULL, 0, addrLoadLibrary, MyAlloc, 0, out dWord);
+    if (ThreadReturn == NULL) {
+        return false;
+    }
+    if ((hProc != NULL) && (MyAlloc != NULL) && (IsWriteOk != false) && (ThreadReturn != NULL))
+    {
+        return true;
+    }
+    return false;
+}
+
+func main(str args[]) {
+    try {
+        str dll_path = args[0];
+        str pid = args[1];
+        int _pid = strToInt(pid);
+        byte[] dll = load_dll(dll_path);
+        if (dll == null) {
+            print("Dll Not Found");
+            exit(1);
+        }
+        bool injected = Inject(dll, _pid);
+        if (injected == false) {
+            exit(1);
+        }
+        exit(0);
+    } catch (Exception) {
+        exit(1);
+    }
+}

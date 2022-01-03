@@ -33,6 +33,9 @@ def return_obj_format_translations():
      return {'OBJECT': "Type name = new Type(args)",
              'ARRAY' : "var[] x = new var[length];"}
 
+def function_translation(function_data: str):
+    return ""
+
 #Will format the data for a class
 def format_class(class_data: str, project: str, included_namespaces: list, frameworks: list, imports: list):
     namespaces = ""
