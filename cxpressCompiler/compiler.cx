@@ -1,6 +1,23 @@
+/*
+    CXPRESS COMPILER WRITTEN IN CXPRESS
+    CYBERM TECHNOLOGIES 2022
+*/
+
 #import "parser.parser.cx"
 #INCLUDE <std.lib>
 #INCLUDE <win.shell>
+
+func shell_compiler_cmd(str build_file) = bool {
+    // We will use the win.shell.execp() function to execute a powershell command;
+    try {
+        str cmd = "msbuild " + build_file + " -t:Build";
+        str result = execp(cmd);
+        print(result);
+        return true;
+    } catch (Exception) {
+        return false;
+    }
+}
 
 func main(str[] args) {
     int return_code = parser_main(args);

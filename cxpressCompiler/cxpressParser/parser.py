@@ -56,6 +56,8 @@ def format_class(class_data: str, project: str, included_namespaces: list, frame
 
     return namespace_str
 
+def find_end_of_class(file: list, class_pointer: int):
+    return ""
 def fromat_file(file_str: str):
     cs_file = ""
     #Convert all variables to C# variables
@@ -104,33 +106,16 @@ def parse_mh_file(mh_file_path: str, function_translations = {}):
         
     return function_translations
         
-def convert_line_to_cs(line: str):
-    cs_line = line
-    for var in variable_dict.keys():
-        if var in cs_line:
-            cs_line.replace(var, variable_dict[var])
+def remove_comments(file_data: list):
+    lines = file_data
     
-    return cs_line
+    
+    return lines
 
-def object_parser(file_data: str, object_pointer: int):
-    cs_obj = ""
+def fromat_cs_file(using_statements: str, classes: list, functions: list):
+    cs_file = ""
     
-    return cs_obj
-    
-        
-def parse_cx_file(cx_file: str):
-
-    return 0
-    
-    
-def generate_cs_file(file_data: str):
-
-    return ""
-    
-    
-def compile_cs_file(filename: str):
-    
-    return
+    return cs_file
 
 def parser_main(args):
     #Get args; args[0] is the file to parse; args[1] is the project name; args[2] is the project type

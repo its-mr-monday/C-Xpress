@@ -21,7 +21,7 @@ func getParserDir() = str {
 }
 
 func variable_dict() = Dictionary<str, str> {
-    Dictionary<str, str> dict;
+    Dictionary<str, str> dict();
     dict.Add("str", "string");
     dict.Add("uint32", "UInt32");
     dict.Add("int32", "Int32");
@@ -108,11 +108,36 @@ func parse_mh_file(str mh_file_path, Dictionary<str, str> function_translations)
     return function_translations;
 }
 
-func load_cx_files(str[] ming_table, str file_path) = str[] {
-
+func format_cs_file(str using_statements, str fname, str[] classes, str[] functions, str main_block, str proj_name) = str {
+    str cs_file = "";
+    cs_file += using_statements;
+    cs_file += "\n";
+    cs_file += "namespace " + proj_name + " {\n";
+    foreach (str class_ in classes) {
+        cs_file += class_ + "\n";
+    }
+    cs_file += "public class " + fname + "{ \n";
+    foreach (str function in functions) {
+        cs_file += function + "\n";
+    }
+    if (main_block != null) {
+        cs_file += "public static void Main(string[] args) {\n"
+        cs_file += main_block + "\n";
+        cs_file += "}\n";
+    }
+    cs_file += "}\n}\n";
+    return cs_file;
 }
 
-
+func remove_comments(str[] file_data) = str[] {
+    str[] lines = file_data;
+    for (int x = 0; x < lines.Length; x++) {
+        str line = lines[x];
+        //check if line is a single comment or multicomment and remove it
+        
+    }
+    return lines;
+}
 
 //Parse the .NET framework namespaces from #framework x => using x;
 func load_framework_files(str[] framework_table, str file_path) = str[] {
