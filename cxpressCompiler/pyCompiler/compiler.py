@@ -1,3 +1,9 @@
+'''
+    CXPRESS COMPILER WRITTEN IN PYTHON3
+    CYBERM TECHNOLOGIES 2022
+
+'''
+
 import os
 import sys
 import parser

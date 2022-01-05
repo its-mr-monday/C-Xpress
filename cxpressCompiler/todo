@@ -1,0 +1,18 @@
+This will be added to the .gitignore however I haven't set that up yet so whatever for now
+
+The compiler needs to parse the necesarry files and namespaces to a new C# project in order
+to use the dotnet/msbuild compiler
+
+So yeah its kinda a parser but well call it the compiler for now HAHA
+
+Parser step 1:
+    If Build File:
+
+        - Read the JSON build file
+        - Parse all the M files
+        - Parse all cx files to one master cs file
+
+    If filename yadida:
+
+        - Read the files imports
+        - Parse the imports to the file first

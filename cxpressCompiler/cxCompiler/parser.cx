@@ -2,6 +2,7 @@
     CXPRESS COMPILER PARSER WRITTEN IN CXPRESS
     CYBER M TECHNOLOGIES 2022
 */
+
 #INCLUDE <std.lib>
 #INCLUDE <std.file>
 #framework System
@@ -156,7 +157,7 @@ func parse_file(str filename) = str {
     //First step is to read the file
     str file_data = read_file(filename);
     if (file_data != null) {
-
+        
     }
     return null;
 }
