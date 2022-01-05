@@ -19,6 +19,15 @@ func shell_compiler_cmd(str build_file) = bool {
     }
 }
 
+func args_check(str[] args) = int {
+    if (args.length == 0) {
+        print("Usage # 1: cxc.exe <build_file>");
+        print("Usage # 2: cxc.exe <file name> <project name> <project type>")
+        return -1;
+    }
+    return 0;
+}
+
 func main(str[] args) {
     int return_code = parser_main(args);
     exit(return_code);
