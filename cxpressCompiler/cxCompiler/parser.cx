@@ -41,7 +41,7 @@ func return_format_types() = Dictionary<str, str> {
     return format_types;
 }
 //Dictionary<string, string> func_translations = new Dictionary<string, string>();
-func return_func_translations() = Dictionary<str, str> {
+func return_obj_translations() = Dictionary<str, str> {
     Dictionary<str, str> func_translations();
     func_trasnlations.Add("OBJECT", "Type name = new Type(args);");
     func_translations.Add("ARRAY", "var[] x = new var[length];");

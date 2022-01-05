@@ -1,0 +1,10 @@
+#LIB_MH
+print => lib.print
+NULL => lib.NULL
+printf => lib.printf
+exit => lib.exit
+strToBytes => lib.strToBytes
+bytesToStr => lib.bytesToStr
+isInt => lib.isInt
+strToInt => lib.strToInt
+slice => lib.slice

@@ -1,0 +1,11 @@
+#KERNEL32_MH
+INVALID_HANDLE_VALUE => kernel32.INVALID_HANDLE_VALUE
+ReadProcessMemory => kernel32.ReadProcessMemory
+OpenProcess => kernel32.OpenProcess
+WriteProcessMemory => kernel32.WriteProcessMemory
+VirtualAllocEx => kernel32.VirtualAllocEx
+CreateRemoteThread => kernel32.CreateRemoteThread
+FindFirstFile => kernel32.FindFirstFile
+LoadLibrary => kernel32.LoadLibrary
+GetProcAddress => kernel32.GetProcAddress
+FreeLibrary => kernel32.FreeLibrary

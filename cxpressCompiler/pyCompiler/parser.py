@@ -21,6 +21,7 @@ def readFileLines(file_path):
     
     return filelines
 
+
 def return_format_types():
     TAB = "    "
     SPACE = " "
@@ -35,40 +36,6 @@ def return_obj_format_translations():
 
 def function_translation(function_data: str):
     return ""
-
-#Will format the data for a class
-def format_class(class_data: str, project: str, included_namespaces: list, frameworks: list, imports: list):
-    namespaces = ""
-    for name in included_namespaces:
-        namespace = name.split('.')[0]
-        namespaces += f"using {namespace};\n"
-    for name in frameworks:
-        namespaces += f"using {name};\n"
-    
-    
-    curly_front = "{"
-    curly_back = "}" 
-    namespace_str = f'''
-    {namespaces}
-    namespace {project} {curly_front}
-        public {class_data}
-    {curly_back}'''
-
-    return namespace_str
-
-def find_end_of_class(file: list, class_pointer: int):
-    return ""
-def fromat_file(file_str: str):
-    cs_file = ""
-    #Convert all variables to C# variables
-    for var in variable_dict.keys():
-        file_str.replace(var, variable_dict[var])
-        
-    for line in file_str:
-        if line.contains("//"):
-            pass
-        
-    return cs_file
 
 def load_m_files(include_table: list, file_path: str):
     file_path = os.path.join(file_path, 'm_files')
@@ -105,17 +72,42 @@ def parse_mh_file(mh_file_path: str, function_translations = {}):
         function_translations[cx_ver] = cs_ver
         
     return function_translations
-        
+
+def fromat_cs_file(using_statements: str, fname: str, classes: list, functions: list, main_block: str, proj_name: str):
+    cs_file = ""
+    cs_file += using_statements + "\n"
+    cs_file += "namespace "+ proj_name +" {\n"
+    for class_ in classes:
+        cs_file += class_ + "\n"
+    cs_file += "public class " + fname + "{\n"
+    for function in functions:
+        cs_file += function + "\n"
+    if main_block != None:
+        cs_file += "public static void Main(string[] args) {\n"
+        cs_file += main_block + "\n"
+        cs_file += "}\n"
+    cs_file += "}\n|\n"
+    return cs_file
+
 def remove_comments(file_data: list):
     lines = file_data
-    
-    
+    for x in range(0, len(lines)):
+        line = lines[x]
+
     return lines
 
-def fromat_cs_file(using_statements: str, classes: list, functions: list):
-    cs_file = ""
+def load_framework_files(framework_table: list, file_path: str):
+    frameworks = framework_table
+    for x in range(0, len(frameworks)):
+        file = frameworks[x]
+        file.replace("#framework ")
+        file = "using " + file + ";"
+        frameworks[x] = file
     
-    return cs_file
+    return frameworks
+
+def parse_file(filename: str):
+    return None
 
 def parser_main(args):
     #Get args; args[0] is the file to parse; args[1] is the project name; args[2] is the project type
