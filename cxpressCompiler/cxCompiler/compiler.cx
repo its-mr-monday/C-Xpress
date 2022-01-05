@@ -3,7 +3,7 @@
     CYBERM TECHNOLOGIES 2022
 */
 
-#import "parser.parser.cx"
+#import "parser.cx"
 #INCLUDE <std.lib>
 #INCLUDE <win.shell>
 
