@@ -10,7 +10,7 @@ PARSER_DIR = os.path.dirname(os.path.realpath(__file__))
 variable_dict = {'str': 'string', 'int': 'int', 'double': 'double',
                  'bool': 'bool', 'char': 'char', 'byte' : 'byte',
                  'pointer': 'IntPtr', 'void': 'void', 'datetime': 'DateTime',
-                 'int32' : 'Int32', 'uint32': 'UInt32'}
+                 'int32' : 'Int32', 'uint32': 'UInt32', 'pass':'continue'}
 
 def readFileLines(file_path):
     filelines = []
@@ -19,7 +19,6 @@ def readFileLines(file_path):
         filelines.append(line)
     
     return filelines
-
 
 def return_format_types():
     TAB = "    "
@@ -121,7 +120,24 @@ def parse_file(filename: str):
     
     for x in range(0, len(fileLines)):
         line = fileLines[x]
-    
+        for key in variable_dict.keys():
+            val = variable_dict[key]
+            line = line.replace(key, val)
+            
+        if (line.startswith('#INCLUDE <')):
+            m_files.append(line)
+            
+        if (line.startswith('#INCLUDE "')):
+            m_files.append(line)
+            
+        if (line.startswith('#framework ')):
+            frameworks.append(line)
+            
+        if (line.startswith('#import ')):
+            cx_files.append(line)
+            
+        
+        
     map = {'M_FILES': m_files, 'CX_FILES': cx_files, 'FRAMEWORKS': frameworks, 
            'CLASSES': classes, 'FUNCTIONS': functions, 'STRUCTS': structs, 'ENUMS': enums}
     
@@ -139,7 +155,11 @@ def parser_main(args):
         print("Not enough arguments")
         return
     
+    filename = args[0]
+    proj_name = args[1]
+    proj_type = args[2]
     
+    map = parse_file(filename)
     
     
     
