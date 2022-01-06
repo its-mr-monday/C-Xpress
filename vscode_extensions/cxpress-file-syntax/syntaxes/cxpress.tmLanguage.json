@@ -161,7 +161,7 @@
 		"keywords": {
 			"patterns": [{
 				"name": "keyword.control.",
-				"match": "\\b(throw|super|enum|default|case|switch|break|out|bool|new|using|null|try|catch|Exception|void|this|class|struct|params|if|else|while|for|return|func|str|int|var|byte|pointer|uint|uint32|float|double|long|INCLUDE|framework|import|int32|char|short|ushort|decimal|object|datetime|foreach|in|true|false)\\b"
+				"match": "\\b(pass|throw|super|enum|default|case|switch|break|out|bool|new|using|null|try|catch|Exception|void|this|class|struct|params|if|else|while|for|return|func|str|int|var|byte|pointer|uint|uint32|float|double|long|INCLUDE|framework|import|int32|char|short|ushort|decimal|object|datetime|foreach|in|true|false)\\b"
 			}]
 		},
 		"identifiers": {

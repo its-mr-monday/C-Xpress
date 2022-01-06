@@ -41,6 +41,7 @@ func variable_dict() = Dictionary<str, str> {
     dict.Add("int32", "Int32");
     dict.Add("pointer", "IntPtr");
     dict.Add("datetime", "DateTime");
+    dict.Add("pass", "continue");
     return dict;
 }
 
@@ -211,7 +212,7 @@ func parse_file(str filename) = Dictionary<str, str[]> {
             str value = variable_dict[key];
             line = line.Replace(key, value);
         }
-
+        
         x +=1 ;
         //Check if it has a functional statement
     }
