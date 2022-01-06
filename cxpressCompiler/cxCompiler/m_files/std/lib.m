@@ -1,4 +1,3 @@
-#STD.LIB.M
 using System;
 using System.IO;
 

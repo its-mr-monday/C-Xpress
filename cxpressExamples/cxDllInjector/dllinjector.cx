@@ -25,7 +25,7 @@ func Inject(byte[] dll, int pid) = bool {
     if (outSz == NULL) {
         return false;
     }
-
+    
     pointer dWord;
     pointer addrLoadLibrary = GetProcAddress(LoadLibrary("kernel32"), "LoadLibraryA");
     pointer ThreadReturn = CreateRemoteThread(hProc, NULL, 0, addrLoadLibrary, MyAlloc, 0, out dWord);

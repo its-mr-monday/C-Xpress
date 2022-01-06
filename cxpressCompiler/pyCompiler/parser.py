@@ -106,7 +106,26 @@ def load_framework_files(framework_table: list, file_path: str):
     return frameworks
 
 def parse_file(filename: str):
-    return None
+    m_files = []
+    cx_files = []
+    frameworks = []
+    classes = []
+    functions = []
+    structs = []
+    enums = []
+    
+    if os.path.isfile(filename) != True:
+        return None
+        
+    fileLines = readFileLines(filename)
+    
+    for x in range(0, len(fileLines)):
+        line = fileLines[x]
+    
+    map = {'M_FILES': m_files, 'CX_FILES': cx_files, 'FRAMEWORKS': frameworks, 
+           'CLASSES': classes, 'FUNCTIONS': functions, 'STRUCTS': structs, 'ENUMS': enums}
+    
+    return map 
 
 def parser_main(args):
     #Get args; args[0] is the file to parse; args[1] is the project name; args[2] is the project type
@@ -119,6 +138,8 @@ def parser_main(args):
     if (len(args) < 3):
         print("Not enough arguments")
         return
+    
+    
     
     
     

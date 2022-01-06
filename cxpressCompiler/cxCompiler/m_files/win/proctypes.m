@@ -1,4 +1,3 @@
-#WIN_32_STATIC_UNSIGNED_INTEGER
 
 namespace win {
 

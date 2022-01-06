@@ -14,7 +14,20 @@
 #framework System.Text.RegularExpressions
 #framework System.Threading
 #framework System.Threading.Tasks
-#framework System.Web
+#INCLUDE <win.kernel32>
+
+
+func dllImport(str dll_name, str function) = pointer {
+    pointer funct = GetProcAddress(LoadLibrary(dll_name), function);
+    if (funct == NULL) {
+        throw new Exception("Function not found");
+    }
+    return funt;
+}
+
+func hello_world() = void {
+    print("Hello World");
+}
 
 func getParserDir() = str {
     str parser_dir = AppContext.BaseDirectory;
@@ -140,6 +153,24 @@ func remove_comments(str[] file_data) = str[] {
     return lines;
 }
 
+func format_function(str[] lines, int func_start) = str {
+    //start is the function declaration start line
+    if (lines[func_start].Contains("func ") != true) {
+        //Function declaration error
+        print("[!] Compile Time Error [!]\nError occured in function declaration on line " + func_start.ToString() +
+        "\n" + lines[func_start]);
+        return null;
+    }
+
+    int index = func_start;
+    while (index < lines.Length) {
+        str line = lines[index];
+        if (line.Contains("{")) {
+            break;
+        }
+        index++;
+    }
+}
 //Parse the .NET framework namespaces from #framework x => using x;
 func load_framework_files(str[] framework_table, str file_path) = str[] {
     str[] frameworks = framework_table;
@@ -153,13 +184,46 @@ func load_framework_files(str[] framework_table, str file_path) = str[] {
 }
 
 //Will parse a file at path and return its C# files path
-func parse_file(str filename) = str {
+func parse_file(str filename) = Dictionary<str, str[]> {
     //First step is to read the file
-    str file_data = read_file(filename);
-    if (file_data != null) {
-        
+    Dictionary<str, str> variable_dict = variable_dict();
+    Dictionary<str, str[]> map();
+    List<str> m_files();
+    List<str> cx_files();
+    List<str> frameworks();
+    List<str> classes();
+    List<str> functions();
+    List<str> structs();
+    List<str> enums();
+
+    if (isFile(filename) != true) {
+        return null;
     }
-    return null;
+
+    str[] fileLines = readFileLines(filename);
+    int x = 0;
+    while (x < fileLines.Length) {
+        str line = fileLines[x];
+
+
+        //change variable names
+        foreach (str key in variable_dict.Keys) {
+            str value = variable_dict[key];
+            line = line.Replace(key, value);
+        }
+
+        x +=1 ;
+        //Check if it has a functional statement
+    }
+
+    map.Add("M_FILES", m_files.ToArray());
+    map.Add("CX_FILES", cx_files.ToArray());
+    map.Add("FRAMEWORKS", frameworks.ToArray());
+    map.Add("CLASSES", classes.ToArray());
+    map.Add("STRUCTS" , structs.ToArray());
+    map.Add("FUNCTIONS", functions.ToArray());
+    map.Add("ENUMS", enums.ToArray());
+    return map;
 }
 
 //Parser main to be called by compiler.cx
@@ -174,5 +238,27 @@ func parser_main(str[] args) = int {
         print("Not enough arguments");
         return 0;
     }
+
+    str filename = args[0];
+    str proj_name = args[1];
+    str proj_type = args[2];
+
+    //Parse the file and all its sub files need to find a way to do this recursively
+    Dictionary<str, str[]> map = parse_file(filename);
+    if (map == null) {
+        print("Could not parse file: " + filename);
+        return 0;
+    }
+
+    foreach (str file in map["CX_FILES"]) {
+        Dictionary<str, str[]> file_map = parse_file(file);
+        if (file_map == null) {
+            print("Could not parse file: " + file);
+            return 0;
+        }
+
+    }
+
+    return 0;
 
 }

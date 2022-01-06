@@ -17,3 +17,4 @@ with the C-Xpress language
 
 ### cxpress-builder
     This extension will give VSCode support for building cx projects
+    It has yet to begin its development

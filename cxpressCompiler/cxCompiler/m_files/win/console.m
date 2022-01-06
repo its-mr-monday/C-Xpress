@@ -1,4 +1,3 @@
-#WIN_32_CONSOLE
 using System;
 using System.Text;
 using System.InteropServices;

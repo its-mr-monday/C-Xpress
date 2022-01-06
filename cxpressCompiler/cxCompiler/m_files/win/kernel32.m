@@ -1,4 +1,3 @@
-#WIN_KERNEL_32.dll conversion: cs
 using System.InteropServices;
 
 namesapce win {
