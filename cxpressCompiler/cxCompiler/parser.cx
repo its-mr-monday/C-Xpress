@@ -16,19 +16,6 @@
 #framework System.Threading.Tasks
 #INCLUDE <win.kernel32>
 
-
-func dllImport(str dll_name, str function) = pointer {
-    pointer funct = GetProcAddress(LoadLibrary(dll_name), function);
-    if (funct == NULL) {
-        throw new Exception("Function not found");
-    }
-    return funt;
-}
-
-func hello_world() = void {
-    print("Hello World");
-}
-
 func getParserDir() = str {
     str parser_dir = AppContext.BaseDirectory;
     return parser_dir;
@@ -184,6 +171,24 @@ func load_framework_files(str[] framework_table, str file_path) = str[] {
     return frameworks;
 }
 
+func parse_recursive_helper(str filename, Dictionary<str, str[]> map, Dictionary<str, str> var_dict) = Dictionary<str, str[]> {
+    if (isFile(filename) != true) {
+        return map;
+    }
+    //Get the data from the map
+    List<str> m_files(map["M_FILES"]);
+
+    str[] fileLines = readFileLines(filename);
+    int x = 0;
+    while (x < fileLines.Length) {
+        str line = fileLines[x];
+    }
+    //Update the map
+    map["M_FILES"] = m_files;
+
+    return map;
+}
+
 //Will parse a file at path and return its C# files path
 func parse_file(str filename) = Dictionary<str, str[]> {
     //First step is to read the file
@@ -196,6 +201,7 @@ func parse_file(str filename) = Dictionary<str, str[]> {
     List<str> functions();
     List<str> structs();
     List<str> enums();
+    List<str> files_parsed();
 
     if (isFile(filename) != true) {
         return null;
@@ -215,6 +221,9 @@ func parse_file(str filename) = Dictionary<str, str[]> {
         
         x +=1 ;
         //Check if it has a functional statement
+
+        //Load the .mh file for each m file and parse the cs file
+
     }
 
     map.Add("M_FILES", m_files.ToArray());
@@ -224,6 +233,7 @@ func parse_file(str filename) = Dictionary<str, str[]> {
     map.Add("STRUCTS" , structs.ToArray());
     map.Add("FUNCTIONS", functions.ToArray());
     map.Add("ENUMS", enums.ToArray());
+    map.Add("PARSED", files_parsed.ToArray());
     return map;
 }
 

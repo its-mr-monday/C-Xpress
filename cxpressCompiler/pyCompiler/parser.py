@@ -104,6 +104,20 @@ def load_framework_files(framework_table: list, file_path: str):
     
     return frameworks
 
+def parse_recursive_helper(filename: str, map: dict):
+    if os.path.isfile(filename) != True:
+        return map
+    m_files = map["M_FILES"]
+    
+    fileLines = readFileLines(filename)
+    
+    for x in range(0, len(fileLines)):
+        line = fileLines[x]
+        
+    map["M_FILES"] = m_files
+    
+    return map
+
 def parse_file(filename: str):
     m_files = []
     cx_files = []
